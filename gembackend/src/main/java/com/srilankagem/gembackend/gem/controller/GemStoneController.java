@@ -3,7 +3,7 @@ package com.srilankagem.gembackend.gem.controller;
 import com.srilankagem.gembackend.gem.dto.GemStoneRequest;
 import com.srilankagem.gembackend.gem.dto.GemStoneResponse;
 import com.srilankagem.gembackend.gem.service.GemStoneService;
-import lombok.Getter;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,18 +20,18 @@ public class GemStoneController {
     private final GemStoneService gemStoneService;
 
     @GetMapping
-    public ResponseEntity<Page<GemStoneResponse>> gemStoneResponses(
+    public ResponseEntity<Page<GemStoneResponse>> getAllGems(
             @PageableDefault(size = 20, sort = "color") Pageable pageable
-    ) {
+    ) {//Spring automatically creates Pageable object from query params.
 
-        return ResponseEntity.ok(
+        return ResponseEntity.ok( //HTTP 200 OK
                 gemStoneService.getAllGemStones(pageable)
         );
     }
 
     @PostMapping
     public ResponseEntity<GemStoneResponse> createGemStone(
-            @RequestBody GemStoneRequest request
+           @Valid @RequestBody GemStoneRequest request
     ) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -39,8 +39,12 @@ public class GemStoneController {
                 .body(gemStoneService.createGemStone(request));
     }
 
-    @GetMapping
-    public ResponseEntity<GemStoneResponse> getGemStoneById(@PathVariable Long id) {
-        return ResponseEntity.ok(gemStoneService.getGemShoneById(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<GemStoneResponse> getGemStoneById(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(
+                gemStoneService.getGemStoneById(id)
+        );
     }
 }

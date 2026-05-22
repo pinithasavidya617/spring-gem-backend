@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "gemstones")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor //creates public GemStone() {}
 @AllArgsConstructor
 @Builder
 public class GemStone {
@@ -62,12 +62,12 @@ public class GemStone {
     @Column
     private LocalDateTime updatedAt;
 
-    @PrePersist
+    @PrePersist //Runs automatically BEFORE first database insert.
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
-    @PreUpdate
+    @PreUpdate //Runs automatically BEFORE update.
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }

@@ -23,15 +23,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorResponse> handleExceptionNotFound(ResourceNotFoundException ex , HttpServletRequest request) {
+    public ResponseEntity<ApiErrorResponse> handleException(
+            Exception ex,
+            HttpServletRequest request
+    ) {
 
         ApiErrorResponse errorResponse = ApiErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value())
-                .error("Resource not found")
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .error("Internal server error")
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(errorResponse);
     }
 }

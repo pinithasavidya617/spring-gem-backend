@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+// THis automatically builds,
+//public GemStoneService(GemStoneRepo gemStoneRepo) {
+//    this.gemStoneRepo = gemStoneRepo;
+//}
+
+
 public class GemStoneService {
 
     private final GemStoneRepo gemStoneRepo;
@@ -41,7 +47,7 @@ public class GemStoneService {
         return toResponse(gemStoneRepo.save(gemStone));
     }
 
-    public GemStoneResponse getGemShoneById(Long id) throws ResourceNotFoundException {
+    public GemStoneResponse getGemStoneById(Long id) throws ResourceNotFoundException {
         return toResponse(gemStoneRepo.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Gem" , id.toString())
         ));
