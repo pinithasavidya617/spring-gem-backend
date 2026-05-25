@@ -22,21 +22,38 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorResponse> handleException(
-            Exception ex,
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ApiErrorResponse> handleException(
+//            Exception ex,
+//            HttpServletRequest request
+//    ) {
+//
+//        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+//                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+//                .error("Internal server error")
+//                .message(ex.getMessage())
+//                .path(request.getRequestURI())
+//                .build();
+//
+//        return ResponseEntity
+//                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(errorResponse);
+//    }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ApiErrorResponse> handleDuplicateResourceException(
+            DuplicateResourceException ex,
             HttpServletRequest request
     ) {
-
         ApiErrorResponse errorResponse = ApiErrorResponse.builder()
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .error("Internal server error")
+                .status(HttpStatus.CONFLICT.value())
+                .error("Duplicate Resource")
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
 
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.CONFLICT)
                 .body(errorResponse);
     }
 }
