@@ -11,7 +11,7 @@ public interface CertificateRepository extends JpaRepository<Certificate, Long> 
 
     Optional<Certificate> findByGemStoneId(Long gemStoneId);
 
-    boolean existsByGemStoneID(Long gemStoneId);
+    boolean existsByGemStoneId(Long gemStoneId);
 
     boolean existsByCertificateNumber(String certificateNumber);
 }
