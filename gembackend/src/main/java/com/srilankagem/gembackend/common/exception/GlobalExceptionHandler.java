@@ -57,17 +57,17 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
-    @ExceptionHandler(GemNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleGemNotFound(GemNotFoundException ex , HttpServletRequest request) {
-
-        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value())
-                .error("Gem not found")
-                .message(ex.getMessage())
-                .path(request.getRequestURI())
-                .build();
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-    }
+//    @ExceptionHandler(GemNotFoundException.class)
+//    public ResponseEntity<ApiErrorResponse> handleGemNotFound(GemNotFoundException ex , HttpServletRequest request) {
+//
+//        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+//                .status(HttpStatus.NOT_FOUND.value())
+//                .error("Gem not found")
+//                .message(ex.getMessage())
+//                .path(request.getRequestURI())
+//                .build();
+//
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+//    }
 
 }
